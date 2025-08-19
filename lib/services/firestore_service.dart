@@ -357,10 +357,9 @@ class FirestoreService {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) {
       throw Exception('No user logged in');
-      // Or return Stream.value([]) if you prefer a non-throwing variant.
     }
 
-    final dayDocId = _dayKey(day); // you already have this helper
+    final dayDocId = _dayKey(day); 
 
     return FirebaseFirestore.instance
       .collection('users').doc(uid).collection('diary')
@@ -421,7 +420,7 @@ class FirestoreService {
     return results;
   }
 
-  // e.g. "2025-08-16" (your _dayKey format)
+  // "2025-08-16" (your _dayKey format)
   Future<void> deleteDiaryEntry({required String dayDocId, required String entryId}) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) throw Exception('No user logged in');
@@ -430,7 +429,7 @@ class FirestoreService {
   }
 
 
-  // Optional: remove day doc if its 'entries' subcollection is empty
+  // remove day doc if its 'entries' subcollection is empty
   Future<void> deleteEmptyDayDoc(String dayDocId) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) throw Exception('No user logged in');
@@ -456,7 +455,7 @@ class FirestoreService {
     return ref.id;
   }
 
-  // Live stream of chats for the signed-in user.
+  // Live stream of chats for the signed-in user
   Stream<QuerySnapshot<Map<String, dynamic>>> chatsStream() {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     return FirebaseFirestore.instance.collection('users').doc(uid).collection('ai_chats').orderBy('createdAt', descending: true).snapshots();
@@ -471,7 +470,7 @@ class FirestoreService {
     });
   }
   
-  /// Delete a chat and all its messages.
+  /// Delete a chat and all its messages
   Future<void> deleteChat(String chatId) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final chatDoc =  FirebaseFirestore.instance.collection('users').doc(uid).collection('ai_chats').doc(chatId);
@@ -503,7 +502,7 @@ class FirestoreService {
   }
 
 
-  /// Unified add message (user OR assistant). Handles optional image upload.
+  /// Unified add message user OR assistant
   Future<void> addMessage(String chatId, {required String role, required String text, File? imageFile}) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final col = FirebaseFirestore.instance.collection('users').doc(uid).collection('ai_chats').doc(chatId).collection('messages');
@@ -542,7 +541,7 @@ class FirestoreService {
     final snap = await FirebaseFirestore.instance.collection('users').doc(uid).collection('ai_chats').doc(chatId)
         .collection('messages').orderBy('timestamp', descending: true).limit(limit).get();
 
-    return snap.docs.reversed.map((d) => d.data()).toList(); // oldest → newest
+    return snap.docs.reversed.map((d) => d.data()).toList();
   }
   
 }
