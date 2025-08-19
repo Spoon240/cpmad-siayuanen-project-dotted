@@ -18,7 +18,6 @@ class GroqService {
   ''';
 
 
-
   Future<String?> _getUsername() async {
     if (_cachedUsername != null) return _cachedUsername;
     final name = await FirestoreService().fetchCurrentUsername();
