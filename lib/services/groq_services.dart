@@ -24,6 +24,7 @@ class GroqService {
     _cachedUsername = name;
     return name;
   }
+  //s
 
   Future<String> sendMessage({required String chatId, required String messageText, String? contextBlock, File? imageFile}) async {
     final username = await _getUsername();
