@@ -3,16 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'screens/login_page.dart';
 
-
 import 'package:provider/provider.dart';
 import 'controllers/diary_provider.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
     ChangeNotifierProvider(
@@ -37,9 +33,7 @@ class MyApp extends StatelessWidget {
         // '/register': (context) => const RegisterPage(),
         // '/home': (context) => const HomePage(),
       },
-
       home: const LoginPage(),
-
     );
   }
 }
